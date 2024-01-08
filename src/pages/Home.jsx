@@ -27,10 +27,13 @@ function Home() {
   return (
     <div className='container' style={{ marginTop: '100px' }}>
       {
+        !loading&&error?<div className='text-center mt-5'>{error}</div>:null
+      }
+      {
         loading ? <div className='d-flex justify-content-center mt-5'><Spinner className='me-3' animation="border" variant="danger" />Loading...</div> :
 
           <Row className='mt-5'>
-            {products.length > 0 && products.map((product, index) => (
+            {products.length > 0 ? products.map((product, index) => (
               <Col key={index} className='mb-5' sm={12} md={6} lg={4} xl={3}>
                 <Card className='shadow rounded' style={{ width: '18rem' }}>
                   <Link to={`/view/${product.id}`}><Card.Img style={{ height: '180px' }} variant="top" src={product.thumbnail} /></Link>
@@ -44,7 +47,8 @@ function Home() {
                 </Card>
 
               </Col>
-            ))}
+            )): !error && <div className='mt-3 text-center fw-bolder text-danger fs-2'>Product not found!!</div>
+          }
           </Row>
       }
     </div>
