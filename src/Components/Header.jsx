@@ -9,7 +9,7 @@ import { productSearch } from '../Redux/Slices/productSlice';
 
 
 
-function Header() {
+function Header({insideHome}) {
     const dispatch=useDispatch()
     const [wishlistCount, setWishlistCount] = useState(0)
     const [cartCount, setCartCount] = useState(0)
@@ -25,7 +25,7 @@ function Header() {
                 <Navbar expand="lg" className="bg-body-tertiary fixed-top">
                     <Container>
                         <Navbar.Brand href="#"><Link to={'/'} style={{ textDecoration: 'none' }}><i class="fa-solid fa-truck-fast me-2"></i>E Cart</Link></Navbar.Brand>
-                        <Navbar.Brand>
+                        { insideHome&& <Navbar.Brand>
                             <Form className="d-flex border rounded">
                                 <Form.Control
                                 onChange={e=>dispatch(productSearch(e.target.value.toLowerCase()))}
@@ -35,7 +35,7 @@ function Header() {
                                     aria-label="Search"
                                 />
                             </Form>
-                        </Navbar.Brand>
+                        </Navbar.Brand>}
                         <Navbar.Brand href="#"><Link to={'/wishlist'} style={{ textDecoration: 'none' }}><Button className='rounded' variant="outline-primary"><i class="fa-solid fa-heart me-2"></i>Wishlist<Badge className='ms-1 rounded'>{wishlistCount}</Badge></Button>{' '}</Link>
                             <Link to={'/cart'}><Button className='rounded' variant="outline-primary"><i class="fa-solid fa-cart-shopping me-1"></i>Cart <Badge className='ms-1 rounded'>{cartCount}</Badge></Button>{' '}</Link>
                         </Navbar.Brand>

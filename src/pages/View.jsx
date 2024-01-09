@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { addToWishlist } from '../Redux/Slices/wishlistSlice'
 import { addtoCart } from '../Redux/Slices/cartSlice'
+import Header from '../Components/Header'
 function View() {
   const { id } = useParams()
   const { loading, products, error } = useSelector((state) => state.productSlice)
@@ -28,25 +29,29 @@ function View() {
 
 
   return (
-    <div className='mt-5 container'>
-      {loading ? <div className='d-flex justify-content-center mt-5'><Spinner className='me-3' animation="border" variant="info" />Loading...</div> :
-        <div className="row mt-5 align-items-center">
-        <div className="col-md-4">
-          <img className='rounded shadow' style={{ height: '250px', width: '100%' }} src={product?.thumbnail} alt="" />
-        </div>
-        <div className="col-md-2"></div>
-        <div className="col-md-6">
-          <p>PID: {product?.id}</p>
-          <h1>{product?.title}</h1>
-          <h5 className='fw-bolder'>$ {product?.price}</h5>
-          <p style={{ textAlign: 'justify' }}><span className='fw-bolder'>Description : </span>{product?.description}</p>
-          <div className='d-flex justify-content-between'>
-            <Button className='rounded' onClick={()=>handleWishlist(product)} variant="outline-danger"><i class="fa-solid fa-heart text-danger me-1"></i>Wishlist</Button>{' '}
-            <Button className='rounded' onClick={()=>dispatch(addtoCart(product))} variant="outline-success"><i class="fa-solid fa-cart-shopping text-success me-1"></i>Cart</Button>{' '}
+    <>
+    <Header/>
+      <div className='mt-5 mb-5 container'>
+        {loading ? <div className='d-flex justify-content-center mt-5'><Spinner className='me-3' animation="border" variant="info" />Loading...</div> :
+          <div className="row mt-5 align-items-center">
+          <div className="col-md-4">
+            <img className='rounded shadow' style={{ height: '250px', width: '100%' }} src={product?.thumbnail} alt="" />
           </div>
-        </div>
-      </div>}
-    </div>
+          <div className="col-md-2"></div>
+          <div className="col-md-6">
+            <p>PID: {product?.id}</p>
+            <h1>{product?.title}</h1>
+            <h5 className='fw-bolder'>$ {product?.price}</h5>
+            <p style={{ textAlign: 'justify' }}><span className='fw-bolder'>Description : </span>{product?.description}</p>
+            <div className='d-flex justify-content-between'>
+              <Button className='rounded' onClick={()=>handleWishlist(product)} variant="outline-danger"><i class="fa-solid fa-heart text-danger me-1"></i>Wishlist</Button>{' '}
+              <Button className='rounded' onClick={()=>dispatch(addtoCart(product))} variant="outline-success"><i class="fa-solid fa-cart-shopping text-success me-1"></i>Cart</Button>{' '}
+            </div>
+          </div>
+        </div>}
+      </div>
+    </>
+   
   )
 }
 
